@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Potlatch</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="create_gift">Create Gift</string>
+    <string name="top_givers">Top Givers</string>
+    <string name="filter">Filter</string>
+    
+</resources>
