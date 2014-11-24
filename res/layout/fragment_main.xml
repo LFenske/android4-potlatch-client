@@ -6,57 +6,54 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.towanda.potlatchclient.MainActivity$PlaceholderFragment" >
+    tools:context="com.towanda.potlatchclient.MainActivity$MainFragment" >
 
     <Button
-        android:id="@+id/create_gift"
+        android:id="@+id/create_chain"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="createGiftClicked"
-        android:text="@string/create_gift" />
+        android:text="@string/create_chain" />
     
     <Button
         android:id="@+id/top_givers"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/create_gift"
-        android:layout_toRightOf="@+id/create_gift"
+        android:layout_toEndOf="@+id/create_chain"
+        android:layout_toRightOf="@+id/create_chain"
         android:onClick="topGiversClicked"
         android:text="@string/top_givers" />
-    
-    <EditText
-        android:id="@+id/filter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/create_gift"
-        android:hint="@string/filter" />
 
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/filter"
-        android:columnCount="1">
-    </GridLayout>
-<!-- 
     <SearchView
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/filter"
+        android:layout_below="@+id/create_chain"
         android:iconifiedByDefault="false"
-        android:queryHint="Filter" >
+        android:queryHint="Filter" />
 
-    </SearchView>
- --> 
+    <ScrollView
+        android:id="@+id/chain_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/search" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

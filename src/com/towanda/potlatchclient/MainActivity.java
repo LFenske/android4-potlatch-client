@@ -3,12 +3,16 @@ package com.towanda.potlatchclient;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.os.Build;
 
 public class MainActivity extends Activity {
@@ -19,7 +23,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+					.add(R.id.container, new MainFragment()).commit();
 		}
 	}
 
@@ -45,9 +49,9 @@ public class MainActivity extends Activity {
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment {
+	public static class MainFragment extends Fragment {
 
-		public PlaceholderFragment() {
+		public MainFragment() {
 		}
 
 		@Override
@@ -56,6 +60,32 @@ public class MainActivity extends Activity {
 			View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
 			return rootView;
+		}
+		
+		@Override
+		public void onActivityCreated(Bundle savedInstanceState) {
+			super.onActivityCreated(savedInstanceState);
+			Button createChainButton = (Button) getView().findViewById(R.id.create_chain);
+			createChainButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent();
+					Context context = getActivity();
+					intent.setClass(context, CreateChainActivity.class);
+					startActivity(intent);
+				}
+			});
+
+			Button topGiversButton = (Button) getView().findViewById(R.id.top_givers);
+			topGiversButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent();
+					Context context = getActivity();
+					intent.setClass(context, TopGiversActivity.class);
+					startActivity(intent);
+				}
+			});
 		}
 	}
 }

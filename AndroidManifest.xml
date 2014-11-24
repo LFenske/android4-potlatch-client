@@ -22,6 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <activity android:name="com.towanda.potlatchclient.CreateChainActivity" />
+        <activity android:name="com.towanda.potlatchclient.TopGiversActivity" />
+        </application>
 
 </manifest>
