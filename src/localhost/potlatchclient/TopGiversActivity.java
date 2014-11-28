@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.towanda.potlatchclient;
+package localhost.potlatchclient;
 
 import android.app.Activity;
 

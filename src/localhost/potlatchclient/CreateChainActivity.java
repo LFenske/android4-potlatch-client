@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.towanda.potlatchclient;
+package localhost.potlatchclient;
 
-import com.towanda.potlatchclient.MainActivity.MainFragment;
+import localhost.potlatchclient.MainActivity.MainFragment;
 
 import android.app.Activity;
 import android.content.Context;
