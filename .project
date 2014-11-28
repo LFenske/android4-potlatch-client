@@ -3,6 +3,7 @@
 	<name>potlatch-client</name>
 	<comment></comment>
 	<projects>
+		<project>potlatch-server</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
