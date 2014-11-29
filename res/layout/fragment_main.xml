@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="createGiftClicked"
         android:text="@string/create_chain" />
+<!--         android:onClick="createGiftClicked" -->
     
     <Button
         android:id="@+id/top_givers"
@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/create_chain"
         android:layout_toRightOf="@+id/create_chain"
-        android:onClick="topGiversClicked"
         android:text="@string/top_givers" />
-
+<!--         android:onClick="topGiversClicked" -->
+    
     <SearchView
         android:id="@+id/search"
         android:layout_width="wrap_content"
