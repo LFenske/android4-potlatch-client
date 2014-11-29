@@ -5,7 +5,7 @@ package localhost.potlatchclient;
 
 import localhost.potlatchclient.MainActivity.MainFragment;
 import retrofit.client.ApacheClient;
-//import localhost.integration.test.UnsafeHttpsClient;
+import localhost.potlatchclient.client.EasyHttpClient;
 import localhost.potlatchclient.client.ChainSvcApi;
 import localhost.potlatchclient.client.MediaSvcApi;
 import localhost.potlatchclient.client.SecuredRestBuilder;
@@ -64,16 +64,16 @@ public class CreateChainActivity extends Activity {
 				
 				Log.d(TAG, "onClickView");
 				
-//				ChainSvcApi service = new SecuredRestBuilder()
-//					.setClient(new ApacheClient(UnsafeHttpsClient.createUnsafeClient()))
-//					.setEndpoint(TEST_URL)
-//					.setLoginEndpoint(TEST_URL + MediaSvcApi.TOKEN_PATH)
-//					.setUsername(USERNAME2)
-//					.setPassword(PASSWORD)
-//					.setClientId(CLIENT_ID)
-//					.build()
-//					.create(ChainSvcApi.class);
-//				Log.d(TAG, "service created");
+				ChainSvcApi service = new SecuredRestBuilder()
+					.setClient(new ApacheClient(new EasyHttpClient(USERNAME2, PASSWORD)))
+					.setEndpoint(TEST_URL)
+					.setLoginEndpoint(TEST_URL + MediaSvcApi.TOKEN_PATH)
+					.setUsername(USERNAME2)
+					.setPassword(PASSWORD)
+					.setClientId(CLIENT_ID)
+					.build()
+					.create(ChainSvcApi.class);
+				Log.d(TAG, "service created");
 				
 				EditText nameET = (EditText) findViewById(R.id.chain_title);
 				String name = nameET.getText().toString();
