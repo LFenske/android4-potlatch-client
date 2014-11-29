@@ -1,7 +1,7 @@
 package localhost.potlatchclient;
 
 import android.app.Activity;
-import android.app.ActionBar;
+//import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.os.Build;
+//import android.os.Build;
 
 public class MainActivity extends Activity {
 
