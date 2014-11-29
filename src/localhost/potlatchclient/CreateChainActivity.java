@@ -8,7 +8,7 @@ import retrofit.client.ApacheClient;
 //import localhost.integration.test.UnsafeHttpsClient;
 import localhost.potlatchclient.client.ChainSvcApi;
 import localhost.potlatchclient.client.MediaSvcApi;
-//import localhost.potlatchclient.client.SecuredRestBuilder;
+import localhost.potlatchclient.client.SecuredRestBuilder;
 import localhost.potlatchclient.repository.Chain;
 import android.app.Activity;
 import android.content.Context;
