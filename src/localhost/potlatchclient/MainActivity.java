@@ -84,6 +84,23 @@ public class MainActivity extends Activity {
 			lv = (ListView)rootView.findViewById(R.id.chain_list);
 			adapter = new ChainArrayAdapter(getActivity(), chain_results);
 			
+			lv.setAdapter(adapter);
+			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
+			return rootView;
+		}
+		
+		@Override
+		public void onResume() {
+			super.onResume();
 			// needs to be in another thread
 			{
 				final String TAG = "MainFragment:OnCreateView";
@@ -109,23 +126,6 @@ public class MainActivity extends Activity {
 
 			}
 
-			lv.setAdapter(adapter);
-			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-			});
-			return rootView;
-		}
-		
-		@Override
-		public void onResume() {
-			
 		}
 		
 		@Override
