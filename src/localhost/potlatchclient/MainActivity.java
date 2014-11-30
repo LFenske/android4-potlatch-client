@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.main_activity);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new MainFragment()).commit();
@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
+			View rootView = inflater.inflate(R.layout.main_fragment, container,
 					false);
 			
 			lv = (ListView)rootView.findViewById(R.id.chain_list);
@@ -90,6 +90,9 @@ public class MainActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
+					Intent intent = new Intent();
+					Context context = getActivity();
+					intent.setClass(context, DisplayChainActivity.class);
 					// TODO Auto-generated method stub
 					
 				}
@@ -108,7 +111,7 @@ public class MainActivity extends Activity {
 					.setClient(new ApacheClient(new EasyHttpClient()))
 					.setEndpoint(Config.TEST_URL)
 					.setLoginEndpoint(Config.TEST_URL + MediaSvcApi.TOKEN_PATH)
-					.setUsername(Config.USERNAME2)
+					.setUsername(Config.username)
 					.setPassword(Config.PASSWORD)
 					.setClientId(Config.CLIENT_ID)
 					.build()
@@ -131,7 +134,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
-			Button createChainButton = (Button) getView().findViewById(R.id.create_chain);
+			Button createChainButton = (Button) getView().findViewById(R.id.chain_create);
 			createChainButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {

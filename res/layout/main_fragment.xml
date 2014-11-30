@@ -9,24 +9,22 @@
     tools:context=".MainActivity$MainFragment" >
 
     <Button
-        android:id="@+id/create_chain"
+        android:id="@+id/chain_create"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="120dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="@string/create_chain" />
-<!--         android:onClick="createGiftClicked" -->
+        android:text="@string/create_chain_" />
     
     <Button
         android:id="@+id/top_givers"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="120dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/create_chain"
-        android:layout_toRightOf="@+id/create_chain"
+        android:layout_toEndOf="@+id/chain_create"
+        android:layout_toRightOf="@+id/chain_create"
         android:text="@string/top_givers" />
-<!--         android:onClick="topGiversClicked" -->
     
     <SearchView
         android:id="@+id/search"
@@ -34,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/create_chain"
+        android:layout_below="@+id/chain_create"
         android:iconifiedByDefault="false"
         android:queryHint="Filter" />
 

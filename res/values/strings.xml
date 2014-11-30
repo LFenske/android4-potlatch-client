@@ -2,13 +2,18 @@
 <resources>
 
     <string name="app_name">Potlatch</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="create_chain">Create Chain</string>
     <string name="create_gift">Create Gift</string>
     <string name="top_givers">Top Givers</string>
     <string name="filter">Filter</string>
-    <string name="chain_title">Gift Chain Title</string>
     <string name="cancel">Cancel</string>
+    <string name="chain_title">Gift Chain Title</string>
+    <string name="create_chain_">Create Chain...</string>
+    <string name="create_gift_">Create Gift...</string>
+    <string name="gift_image">gift image</string>
+    <string name="gift_name">Gift Name</string>
+    <string name="touched">Touched</string>
+    <string name="inappropriate">Inappropriate</string>
     
 </resources>

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import localhost.potlatchclient.repository.Chain;
 import android.content.Context;
 import android.view.LayoutInflater;
-//import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -18,7 +17,7 @@ public class ChainArrayAdapter extends ArrayAdapter<Chain> {
 	public ChainArrayAdapter(Context context, ArrayList<Chain> values) {
 		super(context, R.layout.chain_row, values);
 		this.context = context;
-		this.values = values;
+		this.values  = values;
 	    }
 
 	    @Override

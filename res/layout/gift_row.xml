@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageButton
+        android:id="@+id/gift_row_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/gift_image"
+        android:src="@android:drawable/ic_menu_gallery" />
+
+    <TextView
+        android:id="@+id/gift_row_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/gift_row_image"
+        android:layout_toRightOf="@+id/gift_row_image"
+        android:layout_toEndOf="@+id/gift_row_image"
+        android:contentDescription="@string/gift_name"
+        android:text="@string/gift_name" />
+
+    <ImageView
+        android:id="@+id/gift_row_touched"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/gift_row_image"
+        android:layout_alignLeft="@+id/gift_row_name"
+        android:layout_alignStart="@+id/gift_row_name"
+        android:contentDescription="@string/touched" />
+
+    <TextView
+        android:id="@+id/gift_row_touch_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/gift_row_touched"
+        android:layout_toRightOf="@+id/gift_row_touched"
+        android:layout_toEndOf="@+id/gift_row_touched"
+        android:text="" />
+
+    <ImageView
+        android:id="@+id/gift_row_inapp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/gift_row_touch_count"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_toEndOf="@+id/gift_row_touch_count"
+        android:layout_toRightOf="@+id/gift_row_touch_count"
+        android:contentDescription="@string/inappropriate" />
+   
+</RelativeLayout>

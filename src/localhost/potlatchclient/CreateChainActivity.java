@@ -3,7 +3,6 @@
  */
 package localhost.potlatchclient;
 
-//import localhost.potlatchclient.MainActivity.MainFragment;
 import retrofit.client.ApacheClient;
 import localhost.potlatchclient.client.EasyHttpClient;
 import localhost.potlatchclient.client.ChainSvcApi;
@@ -11,8 +10,6 @@ import localhost.potlatchclient.client.MediaSvcApi;
 import localhost.potlatchclient.client.SecuredRestBuilder;
 import localhost.potlatchclient.repository.Chain;
 import android.app.Activity;
-//import android.content.Context;
-//import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,12 +26,12 @@ public class CreateChainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.create_chain);
+		setContentView(R.layout.chain_create);
 		if (savedInstanceState == null) {
 			//TODO
 		}
 
-		Button cancelButton = (Button) findViewById(R.id.create_chain_cancel_button);
+		Button cancelButton = (Button) findViewById(R.id.chain_create_cancel_button);
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -42,16 +39,11 @@ public class CreateChainActivity extends Activity {
 			}
 		});
 
-		Button createChainButton = (Button) findViewById(R.id.create_chain_button);
+		Button createChainButton = (Button) findViewById(R.id.chain_create_button);
 		createChainButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-//				Intent intent = new Intent();
-//				Context context = CreateChainActivity.this;
-//				intent.setClass(context, CreateChainActivity.class);  //TODO
-//				startActivity(intent);
-
 				final String TAG = "CreateChainActivity";
 				
 				Log.d(TAG, "onClickView");
@@ -60,7 +52,7 @@ public class CreateChainActivity extends Activity {
 					.setClient(new ApacheClient(new EasyHttpClient()))
 					.setEndpoint(Config.TEST_URL)
 					.setLoginEndpoint(Config.TEST_URL + MediaSvcApi.TOKEN_PATH)
-					.setUsername(Config.USERNAME2)
+					.setUsername(Config.username)
 					.setPassword(Config.PASSWORD)
 					.setClientId(Config.CLIENT_ID)
 					.build()
