@@ -3,7 +3,7 @@
  */
 package localhost.potlatchclient;
 
-import localhost.potlatchclient.MainActivity.MainFragment;
+//import localhost.potlatchclient.MainActivity.MainFragment;
 import retrofit.client.ApacheClient;
 import localhost.potlatchclient.client.EasyHttpClient;
 import localhost.potlatchclient.client.ChainSvcApi;
@@ -11,8 +11,8 @@ import localhost.potlatchclient.client.MediaSvcApi;
 import localhost.potlatchclient.client.SecuredRestBuilder;
 import localhost.potlatchclient.repository.Chain;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
+//import android.content.Context;
+//import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,7 +45,7 @@ public class CreateChainActivity extends Activity {
 		Button createChainButton = (Button) findViewById(R.id.create_chain_button);
 		createChainButton.setOnClickListener(new OnClickListener() {
 
-			private final String TEST_URL  = "https://localhost:8443";
+			private final String TEST_URL  = "https://10.0.2.2:8443";
 
 	        private final String USERNAME1 = "admin";
 	        private final String USERNAME2 = "user0";
@@ -65,7 +65,7 @@ public class CreateChainActivity extends Activity {
 				Log.d(TAG, "onClickView");
 				
 				ChainSvcApi service = new SecuredRestBuilder()
-					.setClient(new ApacheClient(new EasyHttpClient(USERNAME2, PASSWORD)))
+					.setClient(new ApacheClient(new EasyHttpClient()))
 					.setEndpoint(TEST_URL)
 					.setLoginEndpoint(TEST_URL + MediaSvcApi.TOKEN_PATH)
 					.setUsername(USERNAME2)
@@ -78,10 +78,10 @@ public class CreateChainActivity extends Activity {
 				EditText nameET = (EditText) findViewById(R.id.chain_title);
 				String name = nameET.getText().toString();
 				Log.d(TAG, "name = "+name);
-//				if (name.length() != 0) {
-//					Chain chain = service.addChain(new Chain(name));
-//					Log.d(TAG, "created chain #" + chain.getId());
-//				}
+				if (name.length() != 0) {
+					Chain chain = service.addChain(new Chain(name));
+					Log.d(TAG, "created chain #" + chain.getId());
+				}
 
 				finish();
 			}
