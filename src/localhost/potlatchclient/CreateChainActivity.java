@@ -45,14 +45,6 @@ public class CreateChainActivity extends Activity {
 		Button createChainButton = (Button) findViewById(R.id.create_chain_button);
 		createChainButton.setOnClickListener(new OnClickListener() {
 
-			private final String TEST_URL  = "https://10.0.2.2:8443";
-
-	        private final String USERNAME1 = "admin";
-	        private final String USERNAME2 = "user0";
-	        private final String PASSWORD  = "pass";
-	        private final String CLIENT_ID = "mobile";
-
-
 			@Override
 			public void onClick(View v) {
 //				Intent intent = new Intent();
@@ -66,11 +58,11 @@ public class CreateChainActivity extends Activity {
 				
 				ChainSvcApi service = new SecuredRestBuilder()
 					.setClient(new ApacheClient(new EasyHttpClient()))
-					.setEndpoint(TEST_URL)
-					.setLoginEndpoint(TEST_URL + MediaSvcApi.TOKEN_PATH)
-					.setUsername(USERNAME2)
-					.setPassword(PASSWORD)
-					.setClientId(CLIENT_ID)
+					.setEndpoint(Config.TEST_URL)
+					.setLoginEndpoint(Config.TEST_URL + MediaSvcApi.TOKEN_PATH)
+					.setUsername(Config.USERNAME2)
+					.setPassword(Config.PASSWORD)
+					.setClientId(Config.CLIENT_ID)
 					.build()
 					.create(ChainSvcApi.class);
 				Log.d(TAG, "service created");

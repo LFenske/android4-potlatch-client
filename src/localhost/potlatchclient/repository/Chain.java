@@ -1,12 +1,14 @@
 package localhost.potlatchclient.repository;
 
+import java.util.Comparator;
+
 import com.google.common.base.Objects;
 
 /**
  * A simple object to represent a gift chain.
  * 
  */
-public class Chain {
+public class Chain implements Comparator<Chain> {
 
 	private long id;
 
@@ -63,6 +65,13 @@ public class Chain {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public int compare(Chain lhs, Chain rhs) {
+		if (lhs.getId() < rhs.getId()) return -1;
+		if (lhs.getId() > rhs.getId()) return +1;
+		return 0;
 	}
 
 }

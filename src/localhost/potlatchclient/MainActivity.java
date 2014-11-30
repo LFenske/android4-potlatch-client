@@ -1,20 +1,32 @@
 package localhost.potlatchclient;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import retrofit.client.ApacheClient;
+import localhost.potlatchclient.client.ChainSvcApi;
+import localhost.potlatchclient.client.EasyHttpClient;
+import localhost.potlatchclient.client.MediaSvcApi;
+import localhost.potlatchclient.client.SecuredRestBuilder;
+import localhost.potlatchclient.repository.Chain;
 import android.app.Activity;
-//import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
-//import android.os.Build;
+import android.widget.ListView;
 
 public class MainActivity extends Activity {
 
@@ -55,6 +67,11 @@ public class MainActivity extends Activity {
 	 */
 	public static class MainFragment extends Fragment {
 
+		ChainArrayAdapter adapter;
+		ArrayList<Chain> chain_results = new ArrayList<Chain>();
+		
+		ListView lv;
+
 		public MainFragment() {
 		}
 
@@ -63,7 +80,52 @@ public class MainActivity extends Activity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
+			
+			lv = (ListView)rootView.findViewById(R.id.chain_list);
+			adapter = new ChainArrayAdapter(getActivity(), chain_results);
+			
+			// needs to be in another thread
+			{
+				final String TAG = "MainFragment:OnCreateView";
+				ChainSvcApi service = new SecuredRestBuilder()
+					.setClient(new ApacheClient(new EasyHttpClient()))
+					.setEndpoint(Config.TEST_URL)
+					.setLoginEndpoint(Config.TEST_URL + MediaSvcApi.TOKEN_PATH)
+					.setUsername(Config.USERNAME2)
+					.setPassword(Config.PASSWORD)
+					.setClientId(Config.CLIENT_ID)
+					.build()
+					.create(ChainSvcApi.class);
+				Log.d(TAG, "service created");
+			
+				Collection<Chain> chains = service.getChainList();
+				Log.d(TAG, "getChainList succeeded");
+				
+				List<Chain> chainlist = new ArrayList<Chain>(chains);
+				Collections.sort(chainlist, new Chain());
+				adapter.clear();
+				adapter.addAll(chainlist);
+				Log.d(TAG, "added");
+
+			}
+
+			lv.setAdapter(adapter);
+			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
 			return rootView;
+		}
+		
+		@Override
+		public void onResume() {
+			
 		}
 		
 		@Override
