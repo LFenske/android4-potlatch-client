@@ -2,60 +2,46 @@ package localhost.potlatchclient;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
-import retrofit.client.ApacheClient;
-import retrofit.client.Response;
 import localhost.potlatchclient.client.EasyHttpClient;
 import localhost.potlatchclient.client.MediaSvcApi;
 import localhost.potlatchclient.client.SecuredRestBuilder;
 import localhost.potlatchclient.repository.Media;
-import android.content.Context;
-import android.content.Intent;
+import retrofit.client.ApacheClient;
+import retrofit.client.Response;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class GiftArrayAdapter extends ArrayAdapter<Media> {
+public class DisplayGiftActivity extends Activity {
 
-	private final Context context;
-	private final ArrayList<Media> values;
+	final static String TAG = "DisplayGiftActivity";
+	
+	long mediaid;
 
-	public GiftArrayAdapter(Context context, ArrayList<Media> values) {
-		super(context, R.layout.gift_row, values);
-		this.context = context;
-		this.values  = values;
+	public DisplayGiftActivity() {
+		// TODO Auto-generated constructor stub
 	}
 
-    @Override
-    public void notifyDataSetChanged() {
-        // TODO Auto-generated method stub
-        super.notifyDataSetChanged();
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.gift_display);
+		if (savedInstanceState == null) {
+			//TODO
+		}
+		Log.d(TAG, "onCreate");
+		
+		mediaid = getIntent().getLongExtra("mediaid", 0);
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View rowView = null;
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null)
-        	convertView = inflater.inflate(R.layout.gift_row, parent, false);
-        rowView = convertView;
-
-        // Display the image.
-        final Media media = values.get(position);
-
-		final String TAG = "GiftArrayAdapter";
-		MediaSvcApi service = new SecuredRestBuilder()
+		final MediaSvcApi service = new SecuredRestBuilder()
 			.setClient(new ApacheClient(new EasyHttpClient()))
 			.setEndpoint(Config.TEST_URL)
 			.setLoginEndpoint(Config.TEST_URL + MediaSvcApi.TOKEN_PATH)
@@ -65,12 +51,15 @@ public class GiftArrayAdapter extends ArrayAdapter<Media> {
 			.build()
 			.create(MediaSvcApi.class);
 		Log.d(TAG, "service created");
-	
+
+		final Media media = service.getMediaById(mediaid);
+
+		// Display larger image.
 		InputStream mediaDataStream = null;
 		Response response;
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		Bitmap image;
-		ImageButton imageButton  = (ImageButton)rowView.findViewById(R.id.gift_row_image);
+		ImageView imageView  = (ImageView)findViewById(R.id.gift_display_image);
 
 		response = service.getMediaData(media.getId());
 		try {
@@ -82,7 +71,7 @@ public class GiftArrayAdapter extends ArrayAdapter<Media> {
 
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeStream(mediaDataStream, null, options);
-	    options.inSampleSize = calculateInSampleSize(options, 60, 60);
+	    options.inSampleSize = calculateInSampleSize(options, 600, 600);
 	    options.inJustDecodeBounds = false;
 
 	    response = service.getMediaData(media.getId());
@@ -94,44 +83,69 @@ public class GiftArrayAdapter extends ArrayAdapter<Media> {
 		}
 
 		image = BitmapFactory.decodeStream(mediaDataStream, null, options);
-		imageButton.setImageBitmap(image);
-		imageButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				long mediaid = media.getId();
-				intent.putExtra("mediaid", mediaid);
-				intent.setClass(context, DisplayGiftActivity.class);
-				Log.d(TAG, "calling DisplayGiftActivity for #"+mediaid);
-				context.startActivity(intent);
-			}
-		});
+		imageView.setImageBitmap(image);
 		
         // Display the name.
-        TextView nameView    = (TextView )rowView.findViewById(R.id.gift_row_name);
+        TextView nameView    = (TextView )findViewById(R.id.gift_display_name);
         nameView.setText(media.getName());
         
         // Display our touched status.
-        ImageView statusView = (ImageView)rowView.findViewById(R.id.gift_row_touched);
+        final ImageButton statusView = (ImageButton)findViewById(R.id.gift_display_touched);
         if (media.getLikers().contains(Config.username)) {
         	statusView.setImageResource(android.R.drawable.btn_star_big_on);
         } else {
         	statusView.setImageResource(android.R.drawable.btn_star_big_off);
         }
-        
         // Display the touch count.
-        TextView countView   = (TextView )rowView.findViewById(R.id.gift_row_touch_count);
+        final TextView countView   = (TextView )findViewById(R.id.gift_display_touch_count);
         countView.setText(media.getLikes()+"");
         
+        statusView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+		        Media media = service.getMediaById(mediaid);
+		        if (media.getLikers().contains(Config.username)) {
+					service.unlikeMedia(mediaid);
+		        	statusView.setImageResource(android.R.drawable.btn_star_big_off);
+		        } else {
+					service.likeMedia(mediaid);
+		        	statusView.setImageResource(android.R.drawable.btn_star_big_on);
+		        }
+		        media = service.getMediaById(mediaid);
+		        countView.setText(media.getLikes()+"");
+			}
+		});
+        
         // Display the inappropriate or obscene flag.
-        ImageView inappView  = (ImageView)rowView.findViewById(R.id.gift_row_inapp);
+        final ImageButton inappView  = (ImageButton)findViewById(R.id.gift_display_inapp);
         if (media.getFlags() != 0) {
         	inappView.setImageResource(android.R.drawable.presence_busy);
         }
 
-        return rowView;
-    }
-    
+        inappView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Media media = service.getMediaById(mediaid);
+		        if (media.getFlaggers().contains(Config.username)) {
+					service.unflagMedia(mediaid);
+				} else {
+					service.flagMedia(mediaid);
+				}
+				media = service.getMediaById(mediaid);
+		        if (media.getFlags() != 0) {
+		        	inappView.setImageResource(android.R.drawable.presence_busy);
+		        } else {
+		        	inappView.setImageResource(android.R.drawable.btn_default);
+		        }
+			}
+		});
+        
+		// display desc
+		TextView descView     = (TextView  )findViewById(R.id.gift_display_desc);
+		descView.setText(media.getDescr());
+
+	}
+	
     public static int calculateInSampleSize(
 	            BitmapFactory.Options options, int reqWidth, int reqHeight) {
 	    // Raw height and width of image
@@ -153,5 +167,5 @@ public class GiftArrayAdapter extends ArrayAdapter<Media> {
 	    }
 	
 	    return inSampleSize;
-    }
+	}
 }

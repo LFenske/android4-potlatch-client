@@ -1,5 +1,6 @@
 package localhost.potlatchclient.repository;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +10,7 @@ import com.google.common.base.Objects;
  * A simple object to represent a media and its URL for viewing.
  * 
  */
-public class Media {
+public class Media implements Comparator<Media>{
 
 	private long id;
 
@@ -90,7 +91,7 @@ public class Media {
 		return descr;
 	}
 
-	public void setDesc(String descr) {
+	public void setDescr(String descr) {
 		this.descr = descr;
 	}
 
@@ -164,6 +165,13 @@ public class Media {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public int compare(Media lhs, Media rhs) {
+		if (lhs.getId() < rhs.getId()) return -1;
+		if (lhs.getId() > rhs.getId()) return +1;
+		return 0;
 	}
 
 }

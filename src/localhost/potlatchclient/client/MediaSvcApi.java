@@ -106,10 +106,6 @@ import retrofit.mime.TypedFile;
  *    - Returns a list of media whose titles match the given parameter or an empty
  *      list if none are found.
  *     
- * GET /media/search/findByDurationLessThan?duration={duration}
- *    - Returns a list of media whose durations are less than the given parameter or
- *      an empty list if none are found.	
- *     
  *     
  * The MediaSvcApi interface described below should be used as the ultimate ground
  * truth for what should be implemented in the assignment. If there are any details
@@ -127,6 +123,8 @@ import retrofit.mime.TypedFile;
  */
 public interface MediaSvcApi {
 
+	public static final String CHAINID_PARAMETER = "chainid";
+
 	public static final String TITLE_PARAMETER = "title";
 
 	public static final String FLAGS_PARAMETER = "flags";
@@ -135,6 +133,9 @@ public interface MediaSvcApi {
 
 	// The path where we expect the MediaSvc to live
 	public static final String MEDIA_SVC_PATH = "/media";
+
+	// The path to search media by chainid
+	public static final String MEDIA_CHAINID_SEARCH_PATH = MEDIA_SVC_PATH + "/search/findByChainid";
 
 	// The path to search media by title
 	public static final String MEDIA_TITLE_SEARCH_PATH = MEDIA_SVC_PATH + "/search/findByName";
@@ -147,6 +148,9 @@ public interface MediaSvcApi {
 
 	@GET(MEDIA_SVC_PATH + "/unflagged")
 	public Collection<Media> getMediaListUnflagged();
+	
+	@GET(MEDIA_SVC_PATH + "/chain/{chainid}")
+	public Collection<Media> getMediaListChain(@Path("chainid") long chainid);
 
 	@GET(MEDIA_SVC_PATH + "/{id}")
 	public Media getMediaById(@Path("id") long id);
@@ -160,7 +164,7 @@ public interface MediaSvcApi {
 	
 	@Streaming
 	@GET(MEDIA_SVC_PATH + "/{id}/data")
-	Response getData(@Path("id") long id);
+	public Response getMediaData(@Path("id") long id);
 
 	@POST(MEDIA_SVC_PATH + "/{id}/like")
 	public Void likeMedia(@Path("id") long id);
@@ -173,6 +177,9 @@ public interface MediaSvcApi {
 
 	@POST(MEDIA_SVC_PATH + "/{id}/unflag")
 	public Void unflagMedia(@Path("id") long id);
+
+	@GET(MEDIA_CHAINID_SEARCH_PATH)
+	public Collection<Media> findByChainid(@Query(CHAINID_PARAMETER) Long chainid);
 
 	@GET(MEDIA_TITLE_SEARCH_PATH)
 	public Collection<Media> findByTitle(@Query(TITLE_PARAMETER) String title);

@@ -15,5 +15,7 @@
     <string name="gift_name">Gift Name</string>
     <string name="touched">Touched</string>
     <string name="inappropriate">Inappropriate</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="gift_description">Gift Description</string>
     
 </resources>

@@ -86,18 +86,18 @@ public class MainActivity extends Activity {
 			
 			lv.setAdapter(adapter);
 			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
+						int position, long id) {  //TODO What is id?
 					Intent intent = new Intent();
 					Context context = getActivity();
+					intent.putExtra("chainid", chain_results.get(position).getId());
+					Log.d("MainActivity", "calling DisplayChainActivity");
 					intent.setClass(context, DisplayChainActivity.class);
-					// TODO Auto-generated method stub
-					
+					startActivity(intent);
 				}
-				
 			});
+
 			return rootView;
 		}
 		
@@ -134,6 +134,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
+			
 			Button createChainButton = (Button) getView().findViewById(R.id.chain_create);
 			createChainButton.setOnClickListener(new OnClickListener() {
 				@Override
